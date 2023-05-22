@@ -5,6 +5,11 @@
   "repository": "git@github.com:bielssinho/bakcend-project-fullsatack.git",
   "author": "bielssinho <bielnmjr@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
