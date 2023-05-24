@@ -9,10 +9,10 @@ class Contact {
     @Column({type: 'varchar'})
     contactName: string
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     contactEmail: string
     
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     contactCellphone: string
     
     @CreateDateColumn({type: 'date'})

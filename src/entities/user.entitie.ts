@@ -9,11 +9,17 @@ class User {
     @Column({type: 'varchar'})
     name: string
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     email: string
+
+    @Column('varchar', { length: 120 })
+    password: string
     
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     cellphone: string
+
+    @Column({type:'varchar'})
+    profileImage: string
     
     @CreateDateColumn({type: 'date'})
     createAt: string
