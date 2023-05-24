@@ -9,12 +9,12 @@ const userSchema = z.object({
     cellphone: z.string().min(10).max(12,'O numero deve ter no máximo 12 caracteres.'),
     password: z.string().refine((value) => {
       const { score } = zxcvbn(value);
-      return score >= 5;
+      return score >= 3;
     }, {
       message: 'A senha deve ter uma força maior.',
     }),
     profileImage: z.string().refine((value) => yup.string().url().isValidSync(value) && /\.(jpg|jpeg|png|gif)$/i.test(value), 'A imagem de perfil deve ser uma URL válida de uma imagem.'),
-    createAt: z.date()
+    createAt: z.string()
 })
 
 const userSchemaRequest = userSchema.omit({
