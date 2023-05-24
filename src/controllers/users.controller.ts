@@ -4,6 +4,7 @@ import { createUsersService } from '../services/users/createUser.service'
 import { readUserService } from '../services/users/readUsers.service'
 import { updateUserService } from '../services/users/updateUser.service'
 import { deleteUserService } from '../services/users/deleteUser.service'
+import { retrieveUserService } from '../services/users/retrieveUser.service'
 
 const createUserController = async (req: Request, resp: Response): Promise<Response> => {
     const data: TUserRequest = req.body
@@ -19,6 +20,14 @@ const readUserController =async (req: Request, resp: Response): Promise<Response
     return resp.status(200).json(listUsers)
 }
 
+const retrieveUserController =async (req: Request, resp: Response): Promise<Response> => {
+    
+    const idUser: string = req.params.id
+    const user = await retrieveUserService(idUser)
+
+    return resp.status(200).json(user)
+}
+
 const updateUserController =async (req: Request, resp: Response): Promise<Response> => {
     const updateUserData: TUserUpdate = req.body
     const idUser: string = req.params.id
@@ -28,18 +37,19 @@ const updateUserController =async (req: Request, resp: Response): Promise<Respon
     return resp.status(200).json(updateUser)
 }
 
-const deleteUserController = async (req: Request, res: Response): Promise<Response> => {
+const deleteUserController = async (req: Request, resp: Response): Promise<Response> => {
     
     const userId: string = req.params.id
 
     await deleteUserService(userId)
 
-    return res.status(204).send()
+    return resp.status(204).send()
 }
 
 export {
     createUserController,
     readUserController,
+    retrieveUserController,
     updateUserController,
     deleteUserController
 }
