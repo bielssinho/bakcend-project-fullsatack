@@ -10,9 +10,6 @@ const deleteContactService = async (contactId: string): Promise<void> => {
     const contact = await contactRepository.findOne({
         where: {
             id: contactId
-        },
-        relations: {
-            user: true
         }
     })
 

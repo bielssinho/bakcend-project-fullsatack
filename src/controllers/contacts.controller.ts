@@ -7,7 +7,8 @@ import { deleteContactService } from '../services/contacts/deleteContact.service
 
 const createContactController = async (req: Request, resp: Response): Promise<Response> => {
     const data: TContactRequest = req.body
-    const newContact = await createContactsService(data)
+    const authenticedId: string = resp.locals.userId
+    const newContact = await createContactsService(data, authenticedId)
 
     return resp.status(201).json(newContact)
 }
@@ -22,7 +23,7 @@ const readContactsController =async (req: Request, resp: Response): Promise<Resp
 const updateContactController =async (req: Request, resp: Response): Promise<Response> => {
     const updateContactata: TContactUpdate = req.body
     const idContact: string = req.params.id
-
+    
     const updateContact = await updateContactService(updateContactata, idContact)
 
     return resp.status(200).json(updateContact)

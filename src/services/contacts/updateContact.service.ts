@@ -1,32 +1,31 @@
 import { Repository } from 'typeorm'
 import { AppDataSource } from '../../data-source'
 import Contact from '../../entities/contact.entitie'
-import { TContactUpdate, TContact } from '../../interfaces/contact.interfaces'
-import { contactWhitUser } from '../../schemas/contacts.schema'
+import { TContact, TContactUpdate } from '../../interfaces/contact.interfaces'
+import { AppError } from '../../errors/AppError'
 
 const updateContactService = async (updateContactData: TContactUpdate, idContact: string): Promise<TContact> => {
 
     const contactRepository: Repository<Contact> = AppDataSource.getRepository(Contact)
 
-    const oldContactData = await contactRepository.findOne({
+    const findOldContactData = await contactRepository.findOne({
         where: {
             id: idContact
-        },
-        relations: {
-            user: true
         }
     })
 
+    if(!findOldContactData){
+        throw new AppError('Contact not found', 404)
+    }
+  
     const contact = contactRepository.create({
-        ...oldContactData,
+        ...findOldContactData,
         ...updateContactData
     })
 
     await contactRepository.save(contact)
 
-    const updateContact = contactWhitUser.parse(contact)
-
-    return updateContact
+    return contact
 }
 
 export { updateContactService }
