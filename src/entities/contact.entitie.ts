@@ -16,7 +16,7 @@ class Contact {
     contactCellphone: string
     
     @CreateDateColumn({type: 'date'})
-    contactCreateAt: string
+    createAt: string
 
     @ManyToOne(() => User)
     user: User
