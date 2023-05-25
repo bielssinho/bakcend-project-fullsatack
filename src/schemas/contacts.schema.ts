@@ -1,4 +1,5 @@
 import * as z from 'zod'
+import { userSchemaResponse } from './users.schema'
 
 const contactSchema = z.object({
     id: z.string(),
@@ -17,4 +18,8 @@ const multiContactsSchemaResponse = contactSchema.array()
 
 const updateContactSchema = contactSchemaRequest.partial()
 
-export { contactSchema, contactSchemaRequest, multiContactsSchemaResponse, updateContactSchema }
+const contactWhitUser = contactSchema.extend({
+    user: userSchemaResponse
+})
+
+export { contactSchema, contactSchemaRequest, multiContactsSchemaResponse, updateContactSchema, contactWhitUser }

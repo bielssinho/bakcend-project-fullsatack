@@ -1,6 +1,7 @@
 import * as z from 'zod'
 import * as yup from 'yup'
 import zxcvbn from 'zxcvbn'
+import { contactSchema } from './contacts.schema';
 
 const userSchema = z.object({
     id: z.string(),
@@ -26,8 +27,12 @@ const userSchemaResponse = userSchema.omit({
     password: true
 })
 
+const userSchemaResponseWhitContacts = userSchemaResponse.extend({
+  contacts: z.array(contactSchema)
+})
+
 const multiUsersSchemaResponse = userSchemaResponse.array()
 
 const updateUserSchema = userSchemaRequest.partial()
 
-export { userSchema, userSchemaRequest, userSchemaResponse, multiUsersSchemaResponse, updateUserSchema }
+export { userSchema, userSchemaRequest, userSchemaResponse, multiUsersSchemaResponse, updateUserSchema, userSchemaResponseWhitContacts }
