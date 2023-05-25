@@ -14,12 +14,13 @@ const contactSchemaRequest = contactSchema.omit({
     createAt: true
 })
 
+const contactWhitUserSchema = contactSchema.extend({
+    user: userSchemaResponse
+})
+
 const multiContactsSchemaResponse = contactSchema.array()
 
 const updateContactSchema = contactSchemaRequest.partial()
 
-const contactWhitUser = contactSchema.extend({
-    user: userSchemaResponse
-})
 
-export { contactSchema, contactSchemaRequest, multiContactsSchemaResponse, updateContactSchema, contactWhitUser }
+export { contactSchema, contactSchemaRequest, multiContactsSchemaResponse, updateContactSchema, contactWhitUserSchema }
