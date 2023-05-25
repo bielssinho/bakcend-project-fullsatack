@@ -1,27 +1,27 @@
 import { Repository } from 'typeorm'
 import { AppDataSource } from '../../data-source'
-import { TUserResponse, TUserUpdate } from '../../interfaces/users.interfaces'
 import Contact from '../../entities/contact.entitie'
-import { userSchemaResponse } from '../../schemas/users.schema'
-import { TContactUpdate } from '../../interfaces/contact.interfaces'
+import { TContactUpdate, TContact } from '../../interfaces/contact.interfaces'
+import { contactSchema } from '../../schemas/contacts.schema'
 
-const updateContactService = async (updateUserData: TContactUpdate, idUser: string): Promise<TUserResponse> => {
-    const userRepository: Repository<Contact> = AppDataSource.getRepository(Contact)
+const updateContactService = async (updateContactData: TContactUpdate, idContact: string): Promise<TContact> => {
 
-    const oldUserData = await userRepository.findOneBy({
-        id: idUser
+    const contactRepository: Repository<Contact> = AppDataSource.getRepository(Contact)
+
+    const oldContactData = await contactRepository.findOneBy({
+        id: idContact
     })
 
-    const user = userRepository.create({
-        ...oldUserData,
-        ...updateUserData
+    const contact = contactRepository.create({
+        ...oldContactData,
+        ...updateContactData
     })
 
-    await userRepository.save(user)
+    await contactRepository.save(contact)
 
-    const updateUser = userSchemaResponse.parse(user)
+    const updateContact = contactSchema.parse(contact)
 
-    return updateUser
+    return updateContact
 }
 
 export { updateContactService }
