@@ -20,19 +20,19 @@ const readContactsController =async (req: Request, resp: Response): Promise<Resp
 }
 
 const updateContactController =async (req: Request, resp: Response): Promise<Response> => {
-    const updateUserData: TContactUpdate = req.body
-    const idUser: string = req.params.id
+    const updateContactata: TContactUpdate = req.body
+    const idContact: string = req.params.id
 
-    const updateUser = await updateContactService(updateUserData, idUser)
+    const updateContact = await updateContactService(updateContactata, idContact)
 
-    return resp.status(200).json(updateUser)
+    return resp.status(200).json(updateContact)
 }
 
 const deleteContactController = async (req: Request, res: Response): Promise<Response> => {
     
-    const userId: string = req.params.id
+    const contactId: string = req.params.id
 
-    await deleteContactService(userId)
+    await deleteContactService(contactId)
 
     return res.status(204).send()
 }
