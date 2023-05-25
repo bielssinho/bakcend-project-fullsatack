@@ -4,10 +4,19 @@ import { AppError } from '../../errors/AppError'
 import { Repository } from 'typeorm'
 import { TContact, TContactRequest } from '../../interfaces/contact.interfaces'
 import { contactSchema } from '../../schemas/contacts.schema'
+import User from '../../entities/user.entitie'
 
-const createContactsService = async (data: TContactRequest): Promise<TContact> => {
+const createContactsService = async (data: TContactRequest, authenticedId: string): Promise<TContact> => {
     const { contactName, contactEmail, contactCellphone } = data
     const contactRepository: Repository<Contact> = AppDataSource.getRepository(Contact)
+    const userRepository: Repository<User> = AppDataSource.getRepository(User)
+
+    const findUser = await userRepository.findOne({
+        where: {
+            id: authenticedId
+        }
+    })
+
     const findContactByEmail = await contactRepository.findOne({
         where: {
             contactEmail
@@ -30,7 +39,8 @@ const createContactsService = async (data: TContactRequest): Promise<TContact> =
     const user = contactRepository.create({
         contactName,
         contactEmail,
-        contactCellphone
+        contactCellphone,
+        user: findUser!
     })
 
     await contactRepository.save(user)
