@@ -5,8 +5,13 @@ import { AppDataSource } from '../../data-source'
 import User from '../../entities/user.entitie'
 import jwt from 'jsonwebtoken'
 
+interface loginReturnProp {
+    token: string;
+    userId: string;
+}
 
-const createTokenService = async ({ email, password}: TLoginRequest): Promise<string> => {
+
+const createTokenService = async ({ email, password }: TLoginRequest): Promise<loginReturnProp> => {
     const usersRepository = AppDataSource.getRepository(User)
 
     const user = await usersRepository.findOne({
@@ -34,7 +39,12 @@ const createTokenService = async ({ email, password}: TLoginRequest): Promise<st
         }
     )
 
-    return token
+    const loginReturn = {
+        token: token,
+        userId: user.id
+    }
+
+    return loginReturn
 }
 
 export { createTokenService }
