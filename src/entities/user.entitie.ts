@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn , Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import Contact from './contact.entitie'
 
 @Entity('users')
@@ -6,25 +6,25 @@ class User {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column({type: 'varchar'})
+    @Column({ type: 'varchar' })
     name: string
 
-    @Column({type: 'varchar', unique: true})
+    @Column({ type: 'varchar', unique: true })
     email: string
 
     @Column('varchar', { length: 120 })
     password: string
-    
-    @Column({type: 'varchar', unique: true})
+
+    @Column({ type: 'varchar', unique: true })
     cellphone: string
 
-    @Column({type:'varchar'})
+    @Column({ type: 'varchar' })
     profileImage: string
-    
-    @CreateDateColumn({type: 'date'})
+
+    @CreateDateColumn({ type: 'date' })
     createAt: string
 
-    @OneToMany(() => Contact, contact => contact.user)
+    @OneToMany(() => Contact, contact => contact.user, { onDelete: 'CASCADE' })
     contacts: Contact[]
 }
 
