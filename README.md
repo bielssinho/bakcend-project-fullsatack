@@ -13,6 +13,11 @@ DATABASE_URL="postgres://user:password@host:port/db"
 SECRET_KEY=
 ```
 
+- rodar as migrations
+```shell
+yarn typeorm migration:run -d ./src/data-source
+```
+
 ## Sobre o projeto
 Esse além de ser um projeto de finalização de módulo (intuito didático) ele é uma aplicação onde o usuário pode criar listar atualizar e deletar um perfil próprio, alem disso ele consegue cadastrar contatos logo abaixo tem alguns exemplos de requisição.
 
